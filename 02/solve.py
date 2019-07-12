@@ -1,10 +1,21 @@
-from operator import mul
-from functools import reduce
+import numpy as np
 
 
 def solve(array):
-    prod = reduce(mul, array, 1)
-    return [prod // x for x in array]
+    array = np.array(array)
+    zero_elements = np.argwhere(array == 0)
+
+    if len(zero_elements) == 1:
+        zero_at = zero_elements[0][0]
+        result = [0] * len(array)
+        result[zero_at] = np.prod(array[np.arange(len(array)) != zero_at])
+        return result
+
+    if len(zero_elements) > 1:
+        return [0] * len(array)
+
+    prod = np.prod(array)
+    return [prod // x if x != 0 else prod for x in array]
 
 
 def solve_wo_div(array):
