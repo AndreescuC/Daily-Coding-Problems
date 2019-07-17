@@ -19,7 +19,9 @@ int getMissing(int* array, int size)
     int new_size = seggregateNegatives(array, size);
 
     for (i = 0; i < new_size; i++) {
-        array[array[i] - 1] = -array[array[i] - 1];
+        if (array[i] <= size) {
+            array[array[i] - 1] = -array[array[i] - 1];
+        }
     }
 
     for (i = 0; i < new_size; i++) {
